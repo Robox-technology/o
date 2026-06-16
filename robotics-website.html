@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RoboX Technology — Robotics Innovation</title>
+<meta name="description" content="RoboX Technology builds intelligent robotic systems from scratch. Explore our robots, innovations, and get in touch to buy or commission a custom build.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #03040a;
+  --surface: #080c18;
+  --card: #0c1120;
+  --border: #151d35;
+  --border2: #1e2a4a;
+  --cyan: #00f0ff;
+  --violet: #7c3aed;
+  --violet2: #a855f7;
+  --white: #eef2ff;
+  --muted: #5a6a9a;
+  --muted2: #8896c0;
+  --red: #ff4458;
+  --green: #00e5a0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--violet); border-radius: 4px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 5%;
+  background: rgba(3,4,10,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  text-decoration: none;
+}
+.nav-logo span {
+  color: var(--cyan);
+}
+.nav-links { display: flex; gap: 0.25rem; list-style: none; }
+.nav-links a {
+  color: var(--muted2);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.nav-links a:hover { color: var(--white); background: var(--border); }
+.nav-cta {
+  background: var(--cyan) !important;
+  color: var(--bg) !important;
+  font-weight: 700 !important;
+}
+.nav-cta:hover { background: #33f5ff !important; transform: translateY(-1px); }
+
+/* ── HERO ── */
+#home {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 9rem 5% 5rem;
+  position: relative; overflow: hidden;
+}
+
+/* Animated grid */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+.hero-grid::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 60% 40%, rgba(124,58,237,0.12) 0%, transparent 70%),
+              radial-gradient(ellipse 50% 50% at 20% 80%, rgba(0,240,255,0.08) 0%, transparent 60%);
+}
+
+/* Floating orbs */
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(100px); pointer-events: none;
+}
+.orb-1 { width: 600px; height: 600px; background: rgba(124,58,237,0.15); top: -150px; right: -100px; animation: drift1 10s ease-in-out infinite alternate; }
+.orb-2 { width: 400px; height: 400px; background: rgba(0,240,255,0.08); bottom: -100px; left: -50px; animation: drift2 8s ease-in-out infinite alternate; }
+@keyframes drift1 { from { transform: translate(0,0); } to { transform: translate(-40px, 30px); } }
+@keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(30px, -20px); } }
+
+.hero-inner { position: relative; z-index: 1; max-width: 1100px; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: rgba(0,240,255,0.06);
+  border: 1px solid rgba(0,240,255,0.2);
+  border-radius: 100px;
+  padding: 0.4rem 1rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--cyan);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.badge-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cyan);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin-bottom: 2rem;
+}
+.h1-line2 {
+  display: block;
+  background: linear-gradient(100deg, var(--cyan) 0%, var(--violet2) 60%, var(--cyan) 100%);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+@keyframes shimmer { 0% { background-position: 0%; } 100% { background-position: 200%; } }
+
+.hero-desc {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--muted2);
+  max-width: 560px;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  font-weight: 300;
+}
+
+.btn-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer; border: none;
+  transition: all 0.25s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--cyan), #0099ff);
+  color: var(--bg);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,240,255,0.25); }
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--border2);
+}
+.btn-outline:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
+
+/* Stats strip */
+.stats-strip {
+  display: flex; gap: 0; margin-top: 5rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+  max-width: 700px;
+}
+.stat-item {
+  flex: 1;
+  padding: 1.5rem 1.25rem;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.stat-item:last-child { border-right: none; }
+.stat-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.stat-lbl {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+/* ── SECTION BASE ── */
+section { padding: 7rem 5%; }
+.sec-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--cyan);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.sec-eyebrow::before {
+  content: ''; display: block;
+  width: 24px; height: 1px; background: var(--cyan);
+}
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.sec-sub {
+  color: var(--muted2);
+  font-size: 1rem;
+  max-width: 500px;
+  line-height: 1.8;
+  margin-bottom: 3.5rem;
+  font-weight: 300;
+}
+
+/* ── ABOUT ── */
+#about { background: var(--surface); }
+.about-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+.about-body p {
+  color: var(--muted2);
+  line-height: 1.9;
+  margin-bottom: 1.2rem;
+  font-weight: 300;
+}
+.about-body p strong { color: var(--white); font-weight: 500; }
+
+.ach-grid { display: flex; flex-direction: column; gap: 1rem; }
+.ach-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  display: flex; gap: 1.25rem; align-items: flex-start;
+  transition: border-color 0.2s, transform 0.2s;
+  cursor: default;
+}
+.ach-card:hover { border-color: var(--cyan); transform: translateX(6px); }
+.ach-emoji { font-size: 1.6rem; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+.ach-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.25rem; color: var(--white); }
+.ach-info { font-size: 0.82rem; color: var(--muted2); line-height: 1.6; }
+
+/* ── PROJECTS ── */
+#projects { background: var(--bg); }
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1.5rem;
+}
+.proj-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  display: flex; flex-direction: column;
+}
+.proj-card:hover {
+  border-color: var(--cyan);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,240,255,0.08);
+}
+.proj-thumb {
+  height: 170px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+}
+.t1 { background: radial-gradient(ellipse at 60% 40%, #0a0040 0%, #03040a 100%); }
+.t2 { background: radial-gradient(ellipse at 40% 60%, #001a10 0%, #03040a 100%); }
+.t3 { background: radial-gradient(ellipse at 60% 40%, #1a0020 0%, #03040a 100%); }
+.t4 { background: radial-gradient(ellipse at 50% 50%, #001520 0%, #03040a 100%); }
+.t5 { background: radial-gradient(ellipse at 40% 60%, #1a1000 0%, #03040a 100%); }
+.t6 { background: radial-gradient(ellipse at 60% 40%, #100020 0%, #03040a 100%); }
+
+.proj-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.proj-tags { display: flex; gap: 0.5rem; margin-bottom: 0.9rem; flex-wrap: wrap; }
+.tag {
+  font-size: 0.68rem;
+  font-family: 'DM Mono', monospace;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.tag-available { background: rgba(0,229,160,0.1); color: var(--green); border: 1px solid rgba(0,229,160,0.25); }
+.tag-research { background: rgba(124,58,237,0.1); color: var(--violet2); border: 1px solid rgba(124,58,237,0.25); }
+.tag-progress { background: rgba(255,200,0,0.08); color: #ffc800; border: 1px solid rgba(255,200,0,0.2); }
+
+.proj-name { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+.proj-desc { font-size: 0.85rem; color: var(--muted2); line-height: 1.75; margin-bottom: 1.2rem; flex: 1; font-weight: 300; }
+.proj-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.proj-price { font-family: 'DM Mono', monospace; font-size: 0.95rem; color: var(--cyan); font-weight: 500; }
+.proj-price.soon { color: var(--muted); }
+.proj-btn {
+  font-size: 0.75rem;
+  color: var(--cyan);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: gap 0.2s;
+  display: flex; align-items: center; gap: 0.3rem;
+}
+.proj-btn:hover { gap: 0.6rem; }
+
+/* ── INNOVATIONS ── */
+#innovations { background: var(--surface); }
+.innov-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.innov-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.innov-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--cyan), var(--violet2));
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.innov-card:hover { border-color: var(--border2); transform: translateY(-4px); }
+.innov-card:hover::before { opacity: 1; }
+.innov-icon { font-size: 2rem; margin-bottom: 1rem; }
+.innov-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.6rem; }
+.innov-desc { font-size: 0.87rem; color: var(--muted2); line-height: 1.8; font-weight: 300; }
+.innov-chips { display: flex; gap: 0.4rem; margin-top: 1rem; flex-wrap: wrap; }
+.chip {
+  font-size: 0.68rem;
+  font-family: 'DM Mono', monospace;
+  background: var(--border);
+  color: var(--muted2);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+/* ── CONTACT ── */
+#contact { background: var(--bg); }
+.contact-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+  align-items: start;
+}
+.contact-left { display: flex; flex-direction: column; gap: 1rem; }
+.cinfo-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  display: flex; gap: 1rem; align-items: flex-start;
+  transition: border-color 0.2s;
+}
+.cinfo-card:hover { border-color: var(--cyan); }
+.cinfo-icon { font-size: 1.4rem; flex-shrink: 0; }
+.cinfo-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; margin-bottom: 0.3rem; }
+.cinfo-val { font-family: 'DM Mono', monospace; font-size: 0.88rem; color: var(--cyan); word-break: break-all; }
+
+/* FORM */
+.cform {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem;
+  display: flex; flex-direction: column; gap: 1.1rem;
+}
+.cform-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.f-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.f-group label {
+  font-size: 0.72rem;
+  color: var(--muted2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+.f-group input,
+.f-group textarea,
+.f-group select {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  padding: 0.85rem 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+.f-group input:focus,
+.f-group textarea:focus,
+.f-group select:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(0,240,255,0.08);
+}
+.f-group textarea { resize: vertical; min-height: 120px; }
+.f-group select option { background: var(--card); }
+.f-submit { margin-top: 0.5rem; width: 100%; justify-content: center; font-size: 1rem; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 3rem 5%;
+}
+.footer-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 2rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.footer-brand .nav-logo { font-size: 1.4rem; margin-bottom: 0.75rem; display: block; }
+.footer-brand p { font-size: 0.85rem; color: var(--muted); max-width: 260px; line-height: 1.7; font-weight: 300; }
+.footer-links-col h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1rem; font-weight: 500; }
+.footer-links-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-links-col ul a { color: var(--muted2); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+.footer-links-col ul a:hover { color: var(--cyan); }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy { font-size: 0.8rem; color: var(--muted); }
+.footer-email { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--cyan); }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .about-wrap, .contact-wrap, .innov-grid { grid-template-columns: 1fr; }
+  .innov-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .nav-links { display: none; }
+  .stats-strip { max-width: 100%; }
+  .f-row { grid-template-columns: 1fr; }
+  .footer-top { flex-direction: column; }
+  h1 { font-size: 2.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">Robo<span>X</span> Technology</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Robots</a></li>
+    <li><a href="#innovations">Innovations</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Robotics &amp; Automation — Est. 2018
+    </div>
+
+    <h1>
+      We build robots<br>
+      <span class="h1-line2">that actually work.</span>
+    </h1>
+
+    <p class="hero-desc">
+      RoboX Technology designs, engineers, and sells intelligent robotic systems — built entirely in-house, from circuit board to finished product.
+    </p>
+
+    <div class="btn-row">
+      <a href="#projects" class="btn btn-primary">Explore Our Robots →</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+
+    <div class="stats-strip reveal">
+      <div class="stat-item">
+        <div class="stat-val">22+</div>
+        <div class="stat-lbl">Projects Done</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">6</div>
+        <div class="stat-lbl">Competition Wins</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">100%</div>
+        <div class="stat-lbl">In-house Design</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">6+</div>
+        <div class="stat-lbl">Years Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-eyebrow">Who we are</div>
+  <h2>Built by builders,<br>for the real world.</h2>
+  <div class="about-wrap">
+    <div class="about-body reveal">
+      <p>
+        <strong>RoboX Technology</strong> is an independent robotics engineering team that designs and builds intelligent robotic systems entirely from scratch. We started with a simple belief: real engineering means understanding every wire, every line of code, and every mechanical joint in what you build.
+      </p>
+      <p>
+        Over the past <strong>6+ years</strong>, we've grown from a small group of passionate builders into a team that has completed <strong>22+ robotics projects</strong> — from autonomous navigation bots to IoT-connected smart systems and precision agriculture robots.
+      </p>
+      <p>
+        We compete, we innovate, and we build for clients. Every robot we sell is one we've already tested, refined, and trusted with our own name on it.
+      </p>
+      <br>
+      <a href="#contact" class="btn btn-outline" style="width:fit-content;">Work with us →</a>
+    </div>
+
+    <div class="ach-grid reveal reveal-delay-1">
+      <div class="sec-eyebrow" style="margin-bottom:0.5rem;">Our achievements</div>
+
+      <div class="ach-card">
+        <div class="ach-emoji">🏆</div>
+        <div>
+          <div class="ach-name">6x Competition Winner</div>
+          <div class="ach-info">Won 6 robotics competitions including regional championships in autonomous navigation and obstacle avoidance.</div>
+        </div>
+      </div>
+
+      <div class="ach-card">
+        <div class="ach-emoji">🎖️</div>
+        <div>
+          <div class="ach-name">Best Innovation Award — Tech Expo</div>
+          <div class="ach-info">Recognized for our smart reward dustbin system using IR break-beam sensors, servo mechanics, and ESP8266 Wi-Fi dashboard.</div>
+        </div>
+      </div>
+
+      <div class="ach-card">
+        <div class="ach-emoji">🤖</div>
+        <div>
+          <div class="ach-name">22+ Robots Built & Delivered</div>
+          <div class="ach-info">Successfully engineered and deployed robots ranging from IoT-connected systems to fully autonomous machines.</div>
+        </div>
+      </div>
+
+      <div class="ach-card">
+        <div class="ach-emoji">🌱</div>
+        <div>
+          <div class="ach-name">Active R&D — Smart Agriculture</div>
+          <div class="ach-info">Currently building an ESP32-based soil analysis robot measuring NPK and pH for precision farming applications.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-eyebrow">Our robots</div>
+  <h2>Projects &amp; robots<br>available for sale.</h2>
+  <p class="sec-sub">Every robot shown here was designed and built by us. Contact us for pricing, custom builds, or bulk orders.</p>
+
+  <div class="projects-grid reveal">
+
+    <div class="proj-card">
+      <div class="proj-thumb t1">🗑️</div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="tag tag-available">Available</span></div>
+        <div class="proj-name">Smart Reward Dustbin</div>
+        <div class="proj-desc">ESP8266-powered smart bin that detects trash insertion via 3 IR break-beam sensors and rewards the user with a chocolate dispensed by a servo motor. Includes a live Wi-Fi dashboard.</div>
+        <div class="proj-footer">
+          <span class="proj-price">Contact for price</span>
+          <a href="#contact" class="proj-btn">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-thumb t2">🚗</div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="tag tag-available">Available</span></div>
+        <div class="proj-name">Line-Following Autonomous Bot</div>
+        <div class="proj-desc">High-accuracy PID-controlled line follower with an 8-channel IR sensor array. Competition-tested and tuned for speed and precision on any track layout.</div>
+        <div class="proj-footer">
+          <span class="proj-price">Contact for price</span>
+          <a href="#contact" class="proj-btn">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-thumb t3">🦾</div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="tag tag-available">Available</span></div>
+        <div class="proj-name">4-DOF Robotic Arm</div>
+        <div class="proj-desc">Servo-driven 4-degree-of-freedom robotic arm with inverse kinematics. Controlled via Bluetooth or browser-based dashboard. Perfect for pick-and-place, demos, and education.</div>
+        <div class="proj-footer">
+          <span class="proj-price">Contact for price</span>
+          <a href="#contact" class="proj-btn">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-thumb t4">🌱</div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="tag tag-progress">In Progress</span></div>
+        <div class="proj-name">Soil Analysis Robot (ESP32)</div>
+        <div class="proj-desc">Measures NPK and pH using ion-selective electrodes and optical sensors. Built for precision agriculture. Designed to give actionable soil health data in the field.</div>
+        <div class="proj-footer">
+          <span class="proj-price soon">Coming Soon</span>
+          <a href="#contact" class="proj-btn">Pre-register →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-thumb t5">📡</div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="tag tag-available">Available</span></div>
+        <div class="proj-name">Obstacle Avoidance Bot</div>
+        <div class="proj-desc">Ultrasonic sensor-based autonomous navigation robot. Detects and avoids walls and objects in real-time. Great for education demos, exhibitions, and school projects.</div>
+        <div class="proj-footer">
+          <span class="proj-price">Contact for price</span>
+          <a href="#contact" class="proj-btn">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-thumb t6">🌐</div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="tag tag-available">Available</span><span class="tag tag-research">IoT</span></div>
+        <div class="proj-name">IoT Remote Control Car</div>
+        <div class="proj-desc">Wi-Fi controlled vehicle with live camera feed. Built on ESP8266 and operable from any browser. Supports standalone Access Point mode — no router needed.</div>
+        <div class="proj-footer">
+          <span class="proj-price">Contact for price</span>
+          <a href="#contact" class="proj-btn">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INNOVATIONS -->
+<section id="innovations">
+  <div class="sec-eyebrow">What makes us different</div>
+  <h2>Our approach to<br>robot innovation.</h2>
+  <p class="sec-sub">These are the principles at the core of every machine we design and build.</p>
+
+  <div class="innov-grid reveal">
+
+    <div class="innov-card">
+      <div class="innov-icon">⚙️</div>
+      <div class="innov-title">Full In-House Engineering</div>
+      <div class="innov-desc">From circuit design and PCB layout to 3D printed enclosures and firmware — we handle it all. No black-box modules. We know every part of what we build.</div>
+      <div class="innov-chips">
+        <span class="chip">Hardware</span>
+        <span class="chip">Embedded C++</span>
+        <span class="chip">3D Printing</span>
+        <span class="chip">PCB Design</span>
+      </div>
+    </div>
+
+    <div class="innov-card">
+      <div class="innov-icon">📶</div>
+      <div class="innov-title">IoT-Connected Systems</div>
+      <div class="innov-desc">Most of our robots include a built-in Wi-Fi dashboard you can open on any phone or browser. Monitor sensors, control actuators, view logs — all wirelessly.</div>
+      <div class="innov-chips">
+        <span class="chip">ESP8266</span>
+        <span class="chip">ESP32</span>
+        <span class="chip">Web Dashboard</span>
+        <span class="chip">Access Point</span>
+      </div>
+    </div>
+
+    <div class="innov-card">
+      <div class="innov-icon">🎯</div>
+      <div class="innov-title">Real-World Problem Solving</div>
+      <div class="innov-desc">We don't build for show. Every project targets a real-world challenge — waste management, agriculture, automation, or education. The result is always a machine that actually works.</div>
+      <div class="innov-chips">
+        <span class="chip">Smart Bins</span>
+        <span class="chip">Agriculture</span>
+        <span class="chip">Automation</span>
+      </div>
+    </div>
+
+    <div class="innov-card">
+      <div class="innov-icon">🛠️</div>
+      <div class="innov-title">Custom Builds & Commissions</div>
+      <div class="innov-desc">Have a specific problem to solve? We take on custom robotics projects for schools, research labs, startups, and individuals. Tell us what you need and we'll build it.</div>
+      <div class="innov-chips">
+        <span class="chip">Custom Orders</span>
+        <span class="chip">Prototyping</span>
+        <span class="chip">Consulting</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-eyebrow">Reach us</div>
+  <h2>Let's build something<br>together.</h2>
+  <p class="sec-sub">Want to buy a robot, commission a custom build, or just ask a question? We reply within 24 hours.</p>
+
+  <div class="contact-wrap">
+    <div class="contact-left reveal">
+
+      <div class="cinfo-card">
+        <div class="cinfo-icon">📧</div>
+        <div>
+          <div class="cinfo-label">Email us</div>
+          <div class="cinfo-val">roboxtechnology5@gmail.com</div>
+        </div>
+      </div>
+
+      <div class="cinfo-card">
+        <div class="cinfo-icon">📱</div>
+        <div>
+          <div class="cinfo-label">WhatsApp / Phone</div>
+          <div class="cinfo-val">+91 00000 00000</div>
+        </div>
+      </div>
+
+      <div class="cinfo-card">
+        <div class="cinfo-icon">📍</div>
+        <div>
+          <div class="cinfo-label">Location</div>
+          <div class="cinfo-val">Your City, India</div>
+        </div>
+      </div>
+
+      <div class="cinfo-card">
+        <div class="cinfo-icon">🕒</div>
+        <div>
+          <div class="cinfo-label">Response Time</div>
+          <div class="cinfo-val">Within 24 hours</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="reveal reveal-delay-1">
+      <form class="cform" action="https://formsubmit.co/roboxtechnology5@gmail.com" method="POST">
+        <div class="cform-title">Send us a message</div>
+
+        <!-- FormSubmit settings -->
+        <input type="hidden" name="_subject" value="New enquiry from RoboX Technology website!">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+
+        <div class="f-row">
+          <div class="f-group">
+            <label>First Name</label>
+            <input type="text" name="First Name" placeholder="Your first name" required>
+          </div>
+          <div class="f-group">
+            <label>Last Name</label>
+            <input type="text" name="Last Name" placeholder="Your last name">
+          </div>
+        </div>
+
+        <div class="f-group">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="f-group">
+          <label>Phone Number (optional)</label>
+          <input type="tel" name="Phone" placeholder="+91 00000 00000">
+        </div>
+
+        <div class="f-group">
+          <label>I'm interested in…</label>
+          <select name="Interest">
+            <option value="">Select a topic</option>
+            <option>Buying a robot</option>
+            <option>Custom robot build</option>
+            <option>School / college project</option>
+            <option>Collaboration / partnership</option>
+            <option>General enquiry</option>
+          </select>
+        </div>
+
+        <div class="f-group">
+          <label>Message</label>
+          <textarea name="message" placeholder="Tell us what you need, what robot you're interested in, or any questions..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary f-submit">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#home" class="nav-logo">Robo<span>X</span> Technology</a>
+      <p>Building intelligent robots from scratch since 2018. Engineering is our language.</p>
+    </div>
+
+    <div class="footer-links-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#projects">Our Robots</a></li>
+        <li><a href="#innovations">Innovations</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links-col">
+      <h4>Robots</h4>
+      <ul>
+        <li><a href="#projects">Smart Reward Dustbin</a></li>
+        <li><a href="#projects">Line-Following Bot</a></li>
+        <li><a href="#projects">Robotic Arm</a></li>
+        <li><a href="#projects">Obstacle Avoidance Bot</a></li>
+        <li><a href="#projects">IoT Remote Car</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:roboxtechnology5@gmail.com">roboxtechnology5@gmail.com</a></li>
+        <li><a href="#contact">Send a Message</a></li>
+        <li><a href="#contact">Custom Build Enquiry</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 RoboX Technology. All rights reserved.</span>
+    <span class="footer-email">roboxtechnology5@gmail.com</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+
+</body>
+</html>
